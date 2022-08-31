@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import React,{ useState } from 'react';
 import './App.css';
+import Login from './components/Login/Login'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { userContext } from './UserContext'
+import HeroSection from './components/HeroSection/HeroSection';
 
 function App() {
+  const [user, setUser] = useState(false)
+  const [userData, setUserData] = useState([])
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser(true)
+      setUserData(user)
+    } else {
+      setUser(false)
+    }
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <userContext.Provider value={{userData,setUserData}}>
+      {user ? <HeroSection /> : <Login /> }
+    </userContext.Provider>
   );
 }
 
