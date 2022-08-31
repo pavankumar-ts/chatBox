@@ -1,4 +1,5 @@
 import React, {  } from 'react'
+import googleIcon from '../../img/google-icon.png'
 import { LoginWrapper, GoogleSignin , Button} from './LoginElements'
 import { getAuth,  GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
@@ -29,7 +30,7 @@ const Login = () => {
     return (
         <LoginWrapper>
             <GoogleSignin>
-                <Button onClick={handleGoogleSingin} >Google</Button>
+                <Button src={googleIcon} onClick={handleGoogleSingin} ></Button>
             </GoogleSignin>
         </LoginWrapper>
     )
